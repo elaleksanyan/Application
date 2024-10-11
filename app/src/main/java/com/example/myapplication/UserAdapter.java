@@ -6,43 +6,47 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.bumptech.glide.Glide;
+
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
-public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
-    private final Context context;
-    private final List<User> userList; // This should be filtered by the MainActivity
-    private final OnUserClickListener onUserClickListener;
+public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
-    public UserAdapter(Context context, List<User> userList, OnUserClickListener onUserClickListener) {
+    private List<User> userList;
+    private Context context;
+    private OnUserClickListener listener;
+
+    public interface OnUserClickListener {
+        void onUserClick(User user);
+    }
+
+    public UserAdapter(Context context, List<User> userList, OnUserClickListener listener) {
         this.context = context;
         this.userList = userList;
-        this.onUserClickListener = onUserClickListener;
+        this.listener = listener;
     }
 
     @NonNull
     @Override
-    public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.user_list_item, parent, false);
-        return new UserViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         User user = userList.get(position);
         holder.usernameTextView.setText(user.getLogin());
-        holder.userIdTextView.setText("ID: " + user.getId());
-
-        // Load avatar with Glide
-        Glide.with(context)
-                .load(user.getAvatarUrl())
-                .circleCrop()
-                .into(holder.avatarImageView);
-
-        // Set click listener on item
-        holder.itemView.setOnClickListener(v -> onUserClickListener.onUserClick(user));
+        Picasso.get().load(user.getAvatarUrl()).into(holder.avatarImageView);
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onUserClick(user);
+            }
+        });
     }
 
     @Override
@@ -50,20 +54,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         return userList.size();
     }
 
-    public static class UserViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView avatarImageView;
         TextView usernameTextView;
-        TextView userIdTextView;
 
-        public UserViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
             avatarImageView = itemView.findViewById(R.id.avatarImageView);
             usernameTextView = itemView.findViewById(R.id.usernameTextView);
-            userIdTextView = itemView.findViewById(R.id.userIdTextView);
         }
-    }
-
-    public interface OnUserClickListener {
-        void onUserClick(User user);
     }
 }
