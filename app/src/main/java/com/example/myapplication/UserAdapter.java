@@ -12,9 +12,8 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
-
     private final Context context;
-    private final List<User> userList;
+    private final List<User> userList; // This should be filtered by the MainActivity
     private final OnUserClickListener onUserClickListener;
 
     public UserAdapter(Context context, List<User> userList, OnUserClickListener onUserClickListener) {
@@ -33,9 +32,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
         User user = userList.get(position);
-
         holder.usernameTextView.setText(user.getLogin());
-        holder.userIdTextView.setText("Id: " + user.getId());
+        holder.userIdTextView.setText("ID: " + user.getId());
 
         // Load avatar with Glide
         Glide.with(context)
@@ -53,7 +51,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     }
 
     public static class UserViewHolder extends RecyclerView.ViewHolder {
-
         ImageView avatarImageView;
         TextView usernameTextView;
         TextView userIdTextView;
