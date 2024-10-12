@@ -8,9 +8,9 @@ public class User {
     private String location;
     private int followers;
     private int following;
-    private int publicRepos;
-    private int publicGists;
-    private String updatedAt;
+    private int public_repos;
+    private int public_gists;
+    private String updated_at;
 
     public String getLogin() {
         return login;
@@ -41,14 +41,14 @@ public class User {
     }
 
     public int getPublicRepos() {
-        return publicRepos;
+        return public_repos;
     }
 
     public int getPublicGists() {
-        return publicGists;
+        return public_gists;
     }
 
     public String getUpdatedAt() {
-        return updatedAt;
+        return updated_at;
     }
 }
