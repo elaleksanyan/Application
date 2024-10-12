@@ -45,8 +45,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         holder.userIdTextView.setText("ID:" + user.getId());
         Picasso.get()
                 .load(user.getAvatarUrl())
-                .transform(new CircleTransform())  // Apply circular transformation
-                .placeholder(R.drawable.avatar_placeholder)  // Optional: set placeholder image
+                .transform(new CircleTransform())
+                .placeholder(R.drawable.avatar_placeholder)
                 .into(holder.avatarImageView);
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
@@ -63,13 +63,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView avatarImageView;
         TextView usernameTextView;
-        TextView userIdTextView;  // Add the userIdTextView
+        TextView userIdTextView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             avatarImageView = itemView.findViewById(R.id.avatarImageView);
             usernameTextView = itemView.findViewById(R.id.usernameTextView);
-            userIdTextView = itemView.findViewById(R.id.userIdTextView);  // Initialize userIdTextView
+            userIdTextView = itemView.findViewById(R.id.userIdTextView);
         }
     }
 }

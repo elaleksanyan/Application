@@ -43,7 +43,6 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Header Section -->
             <ImageView
                 android:id="@+id/avatarImageView"
                 android:layout_width="200dp"
@@ -86,7 +85,6 @@
                     android:textColor="@android:color/darker_gray" />
             </LinearLayout>
 
-            <!-- Followers and Following Section -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

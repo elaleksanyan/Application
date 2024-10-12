@@ -78,7 +78,7 @@ public class UserDetail extends AppCompatActivity {
                                 .placeholder(R.drawable.avatar_placeholder)
                                 .into(avatarImageView);
                     } else {
-                        avatarImageView.setImageResource(R.drawable.avatar_placeholder); // Use a placeholder image
+                        avatarImageView.setImageResource(R.drawable.avatar_placeholder);
                     }
 
                     usernameTextView.setText(user.getLogin()); // Use getLogin() for the username
