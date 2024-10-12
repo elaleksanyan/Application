@@ -12,7 +12,6 @@ public class User {
     private int publicGists;
     private String updatedAt;
 
-    // Getters
     public String getLogin() {
         return login;
     }

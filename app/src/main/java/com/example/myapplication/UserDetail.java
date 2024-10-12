@@ -2,6 +2,8 @@ package com.example.myapplication;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.content.Intent;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UserDetail extends AppCompatActivity {
 
+
     private ImageView avatarImageView;
     private TextView usernameTextView, bioTextView, followersTextView, followingTextView,
             reposTextView, gistsTextView, updatedAtTextView, locationTextView;
@@ -31,6 +34,7 @@ public class UserDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_detail);
 
+        ImageView backButton = findViewById(R.id.backButton);
         avatarImageView = findViewById(R.id.avatarImageView);
         usernameTextView = findViewById(R.id.usernameTextView);
         bioTextView = findViewById(R.id.bioDescriptionTextView);
@@ -43,6 +47,14 @@ public class UserDetail extends AppCompatActivity {
         String username = getIntent().getStringExtra("username");
 
         fetchUserDetails(username);
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 
     private void fetchUserDetails(String username) {
@@ -61,7 +73,10 @@ public class UserDetail extends AppCompatActivity {
                     User user = response.body();
 
                     if (user.getAvatarUrl() != null) {
-                        Picasso.get().load(user.getAvatarUrl()).into(avatarImageView);
+                        Picasso.get().load(user.getAvatarUrl())
+                                .transform(new CircleTransform())
+                                .placeholder(R.drawable.avatar_placeholder)
+                                .into(avatarImageView);
                     } else {
                         avatarImageView.setImageResource(R.drawable.avatar_placeholder); // Use a placeholder image
                     }

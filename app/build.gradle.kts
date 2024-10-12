@@ -51,10 +51,8 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
 
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-
-    implementation("com.squareup.picasso:picasso:2.8")
+    implementation("com.squareup.picasso:picasso:2.71828")
     implementation("androidx.cardview:cardview:1.0.0")
-
 
 }
 

@@ -40,8 +40,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         User user = userList.get(position);
+
         holder.usernameTextView.setText(user.getLogin());
-        Picasso.get().load(user.getAvatarUrl()).into(holder.avatarImageView);
+        holder.userIdTextView.setText("ID:" + user.getId());
+        Picasso.get()
+                .load(user.getAvatarUrl())
+                .transform(new CircleTransform())  // Apply circular transformation
+                .placeholder(R.drawable.avatar_placeholder)  // Optional: set placeholder image
+                .into(holder.avatarImageView);
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
                 listener.onUserClick(user);
@@ -57,11 +63,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView avatarImageView;
         TextView usernameTextView;
+        TextView userIdTextView;  // Add the userIdTextView
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             avatarImageView = itemView.findViewById(R.id.avatarImageView);
             usernameTextView = itemView.findViewById(R.id.usernameTextView);
+            userIdTextView = itemView.findViewById(R.id.userIdTextView);  // Initialize userIdTextView
         }
     }
 }
